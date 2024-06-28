@@ -32,7 +32,7 @@ export default function DateTimePickerValue({ onClose }) {
         <DateTimePicker
           value={value}
           onChange={(newValue) => setValue(newValue)}
-          renderInput={(params) => <TextField {...params} />}
+          textField={(params) => <TextField {...params} />}
           sx={{
             width: { xs: '70%', lg: '50%' },
             '.MuiOutlinedInput-root': {

@@ -50,7 +50,7 @@ function CategoryCard({ category }) {
     >
       <ImgCard
         className='imgCard'
-        key={category.id}
+        key={category.name}
         component='img'
         src={category.img}
         alt={category.name}
@@ -58,7 +58,7 @@ function CategoryCard({ category }) {
 
       <InfoBox className='infoBox'>
         <Box
-          key={category.id}
+          key={category.name}
           sx={{
             display: 'flex',
             flexDirection: 'column',
