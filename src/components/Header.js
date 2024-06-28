@@ -96,9 +96,8 @@ function Header() {
         {pages.map((page) => (
           <ListItem key={page}>
             <ListItemButton
-              key={page}
               disableRipple
-              conponent={RouterLink}
+              component={RouterLink}
               to={`/${page}`}
             >
               {page}
@@ -160,7 +159,7 @@ function Header() {
               {pages.map((page) => (
                 <Button
                   disableRipple
-                  key={page.id}
+                  key={page}
                   component={RouterLink}
                   to={`/${page}`}
                   sx={meunBtnStyles}

@@ -83,7 +83,7 @@ function Footer() {
         <Box sx={menuWrapBox}>
           <Box sx={menu1Box}>
             {footerMenu[0].map((menu) => (
-              <Typography key={menu} disableRipple sx={textStyles}>
+              <Typography key={menu} sx={textStyles}>
                 {menu}
               </Typography>
             ))}
@@ -91,7 +91,7 @@ function Footer() {
 
           <Box sx={menu2Box}>
             {footerMenu[1].map((menu) => (
-              <Typography key={menu} disableRipple sx={textStyles}>
+              <Typography key={menu} sx={textStyles}>
                 {menu}
               </Typography>
             ))}

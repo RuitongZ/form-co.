@@ -23,30 +23,30 @@ const responsiveStyles = {
   lg: {
     breakpoint: {
       max: 1536,
-      min: 1200,
+      min: 1380,
     },
     items: 4,
     partialVisibilityGutter: 30,
   },
   md: {
     breakpoint: {
-      max: 1200,
-      min: 900,
+      max: 1380,
+      min: 1060,
     },
     items: 3,
     partialVisibilityGutter: 30,
   },
   sm: {
     breakpoint: {
-      max: 900,
-      min: 600,
+      max: 1060,
+      min: 750,
     },
     items: 2,
-    partialVisibilityGutter: 20,
+    partialVisibilityGutter: 30,
   },
   xs: {
     breakpoint: {
-      max: 600,
+      max: 750,
       min: 0,
     },
     items: 1,
@@ -137,18 +137,23 @@ function ImgCarousel({ title }) {
               <Box
                 key={item.id}
                 sx={{
-                  paddingX: { xs: '5px', sm: '20px' },
+                  // paddingX: { xs: '5px', sm: '20px' },
                   overflow: 'hidden',
+                  maxWidth: '280px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
                 }}
               >
-                <ItemImgCard key={item.id} item={item} />
-                <ItemInfoCard key={item.id} item={item} />
+                <ItemImgCard item={item} />
+                <ItemInfoCard item={item} />
               </Box>
             ))}
           </Carousel>
         </Box>
         <ArrowButton direction='right' onClick={handleNext} />
       </Box>
+
       <Box
         sx={{
           display: 'flex',

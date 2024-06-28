@@ -24,8 +24,8 @@ function Categories() {
       </Box>
       <Grid container columnSpacing={{ xs: 2, md: 4 }} spacing={2}>
         {categories.map((category) => (
-          <Grid item xs={6} md={3} key={category.id}>
-            <CategoryCard key={category.id} category={category} />
+          <Grid item xs={6} md={3} key={category.name}>
+            <CategoryCard category={category} />
           </Grid>
         ))}
       </Grid>
