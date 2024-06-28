@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const ImgContainer = styled(Box)({
-  maxWidth: { xs: '250px', sm: '280px' },
+  maxWidth: '280px',
   height: '400px',
   margin: 'auto',
   border: '1px solid #000',
@@ -35,7 +35,6 @@ const OverlayImgCard = styled(Box)({
 function ItemImgCard({ item }) {
   return (
     <ImgContainer
-      key={item.id}
       onMouseEnter={(e) => {
         e.currentTarget.querySelector('.overlayImgCard').style.opacity = '100';
       }}
@@ -44,7 +43,6 @@ function ItemImgCard({ item }) {
       }}
     >
       <ImgCard
-        key={item.id}
         className='imgCard'
         component='img'
         src={item.img[0]}
