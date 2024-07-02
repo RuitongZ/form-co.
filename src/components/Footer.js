@@ -1,4 +1,4 @@
-import { footerMenu } from '../data/footerMenu';
+import { FOOTER_MENUS } from '../data/footerMenu';
 
 import { Box, Typography } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -82,7 +82,7 @@ function Footer() {
       <Box sx={upperContainer}>
         <Box sx={menuWrapBox}>
           <Box sx={menu1Box}>
-            {footerMenu[0].map((menu) => (
+            {FOOTER_MENUS[0].map((menu) => (
               <Typography key={menu} sx={textStyles}>
                 {menu}
               </Typography>
@@ -90,7 +90,7 @@ function Footer() {
           </Box>
 
           <Box sx={menu2Box}>
-            {footerMenu[1].map((menu) => (
+            {FOOTER_MENUS[1].map((menu) => (
               <Typography key={menu} sx={textStyles}>
                 {menu}
               </Typography>

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { products } from '../data/products';
+import { All_PRODUCTS_DATA } from '../data/all-products-data';
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -50,7 +50,7 @@ const responsiveStyles = {
       min: 0,
     },
     items: 1,
-    partialVisibilityGutter: 5,
+    partialVisibilityGutter: 10,
   },
 };
 
@@ -133,16 +133,16 @@ function ImgCarousel({ title }) {
             slidesToSlide={1}
             swipeable
           >
-            {products.map((item) => (
+            {All_PRODUCTS_DATA.map((item) => (
               <Box
                 key={item.id}
                 sx={{
-                  // paddingX: { xs: '5px', sm: '20px' },
                   overflow: 'hidden',
                   maxWidth: '280px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
+                  margin: '0 auto',
                 }}
               >
                 <ItemImgCard item={item} />
@@ -161,7 +161,7 @@ function ImgCarousel({ title }) {
           paddingTop: '50px',
         }}
       >
-        <CustomButton btnName='View more' color='black' />
+        <CustomButton btnName='View all' color='black' />
       </Box>
     </Box>
   );

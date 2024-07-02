@@ -1,4 +1,4 @@
-import { categories } from '../data/categories';
+import { CATEGORIES } from '../data/categories';
 
 import { Box, Grid, Typography } from '@mui/material';
 import CategoryCard from '../ui/CategoryCard';
@@ -23,7 +23,7 @@ function Categories() {
         <Typography sx={{ fontSize: '32px' }}>Categories</Typography>
       </Box>
       <Grid container columnSpacing={{ xs: 2, md: 4 }} spacing={2}>
-        {categories.map((category) => (
+        {CATEGORIES.map((category) => (
           <Grid item xs={6} md={3} key={category.name}>
             <CategoryCard category={category} />
           </Grid>
