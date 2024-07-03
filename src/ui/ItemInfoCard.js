@@ -17,7 +17,7 @@ function ItemInfoCard({ item }) {
           {item.brand}
         </Typography>
         <Typography sx={{ fontSize: '14px' }}>{item.name}</Typography>
-        <Typography sx={{ fontSize: '12px' }}>{item.color[0]}</Typography>
+        <Typography sx={{ fontSize: '12px' }}>{item.color}</Typography>
       </Box>
       <Box>
         <Typography
@@ -28,7 +28,7 @@ function ItemInfoCard({ item }) {
             color: '#898989',
           }}
         >
-          {item.price[0]}
+          {item.price}
         </Typography>
       </Box>
     </Box>

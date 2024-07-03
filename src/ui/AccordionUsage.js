@@ -1,4 +1,4 @@
-import { customServiceQuestions } from '../data/customeServiceQuestions';
+import { CUSTOMER_SERVICE_QUESTIONS } from '../data/customer-service-questions';
 import IconRenderer from '../components/IconRenderer';
 
 import {
@@ -21,7 +21,7 @@ const titleBox = {
 function AccordionUsage() {
   return (
     <>
-      {customServiceQuestions.map((item, index) => (
+      {CUSTOMER_SERVICE_QUESTIONS.map((item, index) => (
         <Box key={index} sx={{ width: '80%', marginBottom: '60px' }}>
           <Box key={item} sx={titleBox}>
             <IconRenderer name={item.name} />
