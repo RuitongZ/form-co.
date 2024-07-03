@@ -1,4 +1,4 @@
-export const customServiceQuestions = [
+export const CUSTOMER_SERVICE_QUESTIONS = [
   {
     title: 'Contact Us',
     name: 'contact',

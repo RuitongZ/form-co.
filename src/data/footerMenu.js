@@ -1,4 +1,4 @@
-export const footerMenu = [
+export const FOOTER_MENUS = [
   ['Products', 'Designers', 'Features', 'Sales'],
   [
     'About Us',

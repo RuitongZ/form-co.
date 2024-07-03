@@ -3,7 +3,7 @@ import tables from '../images/tables/Pavilion-AV17-desk-3.jpg';
 import lighting from '../images/lighting/Meridian-Lamp-cashmere-2.png';
 import objects from '../images/objects/Momento-Vase-JH41-1.jpeg';
 
-export const categories = [
+export const CATEGORIES = [
   {
     name: 'Seating',
     categories: 'Sofa / Lounge Chair',
