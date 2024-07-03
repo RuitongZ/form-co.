@@ -1,4 +1,4 @@
-import ContactInfo from '../components/ContactInfo';
+import ContactInfo from '../body/ContactInfo';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 

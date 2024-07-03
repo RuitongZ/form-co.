@@ -1,10 +1,13 @@
 import Header from '../components/Header';
+import ImgCarousel from '../components/ImgCarousel';
+import ProductDetailRenderer from '../components/ProductDetailRenderer';
 
 function ProductDetail() {
   return (
     <>
       <Header />
-      <h1>ProductDetail</h1>
+      <ProductDetailRenderer />
+      <ImgCarousel title='Related Products' />
     </>
   );
 }
