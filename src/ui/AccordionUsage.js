@@ -22,7 +22,10 @@ function AccordionUsage() {
   return (
     <>
       {CUSTOMER_SERVICE_QUESTIONS.map((item, index) => (
-        <Box key={index} sx={{ width: '80%', marginBottom: '60px' }}>
+        <Box
+          key={index}
+          sx={{ width: { xs: '100%', sm: '80%' }, marginBottom: '60px' }}
+        >
           <Box key={item} sx={titleBox}>
             <IconRenderer name={item.name} />
             <Typography sx={{ fontSize: '20px' }}>{item.title}</Typography>

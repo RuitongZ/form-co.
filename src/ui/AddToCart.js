@@ -8,7 +8,7 @@ function AddToCart() {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-Start',
         paddingTop: '30px',
         paddingBottom: '40px',
         gap: '30px',
@@ -16,17 +16,19 @@ function AddToCart() {
     >
       <Box
         sx={{
+          width: { xs: '25%', sm: '35%' },
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           border: '1px solid #000',
-          gap: '10px',
         }}
       >
         <Button
           disableRipple
           sx={{
-            width: '50px',
-            height: '50px',
+            minWidth: '40px',
+            height: '40px',
+            padding: 0,
             color: '#000',
             '&:hover': { backgroundColor: 'transparent' },
           }}
@@ -34,13 +36,23 @@ function AddToCart() {
           <RemoveIcon fontSize='small' />
         </Button>
 
-        <Typography sx={{ fontSize: '18px' }}>1</Typography>
+        <Typography
+          sx={{
+            fontSize: '18px',
+            minWidth: '20px',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          1
+        </Typography>
 
         <Button
           disableRipple
           sx={{
-            width: '50px',
-            height: '50px',
+            minWidth: '40px',
+            height: '40px',
+            padding: 0,
             color: '#000',
             '&:hover': { backgroundColor: 'transparent' },
           }}
@@ -49,17 +61,20 @@ function AddToCart() {
         </Button>
       </Box>
 
-      <Box>
+      <Box sx={{ width: { xs: '75%', sm: '65%' } }}>
         <Button
           disableRipple
           sx={{
             height: '50px',
-            paddingX: '100px',
+            width: '100%',
+            margin: '0 auto',
             color: '#fff',
             fontSize: '16px',
+            textTransform: 'capitalize',
             fontWeight: 400,
             backgroundColor: '#000',
-            '&:hover': { backgroundColor: 'transparent' },
+            borderRadius: 0,
+            '&:hover': { backgroundColor: '#2E2E2E' },
           }}
         >
           Add to cart

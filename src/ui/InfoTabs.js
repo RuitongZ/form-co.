@@ -5,6 +5,16 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
+const tabStyles = {
+  fontSize: '16px',
+  textTransform: 'capitalize',
+  color: '#000',
+  fontWeight: 400,
+  '&.Mui-selected': {
+    fontWeight: 500,
+  },
+};
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -16,7 +26,7 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 2 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 2, fontSize: '14px' }}>{children}</Box>}
     </div>
   );
 }
@@ -44,9 +54,28 @@ function InfoTabs() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange}>
-          <Tab disableRipple label='Description' {...a11yProps(0)} />
-          <Tab disableRipple label='Product Details' {...a11yProps(1)} />
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor='#000'
+          sx={{
+            '& .MuiTabs-indicator': {
+              backgroundColor: '#000',
+            },
+          }}
+        >
+          <Tab
+            disableRipple
+            label='Description'
+            {...a11yProps(0)}
+            sx={tabStyles}
+          />
+          <Tab
+            disableRipple
+            label='Product Details'
+            {...a11yProps(1)}
+            sx={tabStyles}
+          />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
