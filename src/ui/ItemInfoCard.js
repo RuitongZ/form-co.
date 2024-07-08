@@ -1,3 +1,5 @@
+import { Link as RouterLink } from 'react-router-dom';
+
 import { Box, Typography } from '@mui/material';
 
 function ItemInfoCard({ item }) {
@@ -12,12 +14,27 @@ function ItemInfoCard({ item }) {
         justifyContent: 'space-between',
       }}
     >
-      <Box>
-        <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography
+          sx={{
+            fontSize: '14px',
+            fontWeight: '600',
+            textDecoration: 'none',
+            color: 'inherit',
+          }}
+        >
           {item.brand}
         </Typography>
-        <Typography sx={{ fontSize: '14px' }}>{item.name}</Typography>
-        <Typography sx={{ fontSize: '12px' }}>{item.color}</Typography>
+        <Typography
+          sx={{ fontSize: '14px', textDecoration: 'none', color: 'inherit' }}
+        >
+          {item.name}
+        </Typography>
+        <Typography
+          sx={{ fontSize: '12px', textDecoration: 'none', color: 'inherit' }}
+        >
+          {item.color}
+        </Typography>
       </Box>
       <Box>
         <Typography

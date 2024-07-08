@@ -1,12 +1,15 @@
+import { Link as RouterLink } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
-function CustomButton({ btnName, color, onClick }) {
+function CustomButton({ btnName, color, href }) {
   const isBlack = color === 'black';
 
   return (
     <Button
       disableRipple
-      onClick={onClick}
+      component={href ? RouterLink : 'button'}
+      to={href}
       sx={{
         padding: '12px 40px ',
         border: `1px solid ${isBlack ? '#000' : '#fff'}`,

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
 
 const tabStyles = {
   fontSize: '16px',
@@ -44,7 +45,7 @@ function a11yProps(index) {
   };
 }
 
-function InfoTabs() {
+function InfoTabs({ item }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -57,7 +58,7 @@ function InfoTabs() {
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor='#000'
+          textColor='inherit'
           sx={{
             '& .MuiTabs-indicator': {
               backgroundColor: '#000',
@@ -79,10 +80,11 @@ function InfoTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Description
+        {item.description}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Product Details
+        {item.productDetails}
+        <Typography fontSize='14px'>Materials: {item.materials}</Typography>
       </CustomTabPanel>
     </Box>
   );
