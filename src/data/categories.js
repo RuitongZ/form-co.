@@ -5,23 +5,23 @@ import objects from '../images/objects/Momento-Vase-JH41-1.jpeg';
 
 export const CATEGORIES = [
   {
-    name: 'Seating',
-    categories: 'Sofa / Lounge Chair',
+    category: 'seating',
+    type: ['sofa', 'lounge chair'],
     img: seating,
   },
   {
-    name: 'Table',
-    categories: 'Desk / Side Table',
+    category: 'table',
+    type: ['desk', 'side table'],
     img: tables,
   },
   {
-    name: 'Lighting',
-    categories: 'Table / Floor / Pendant',
+    category: 'lighting',
+    type: ['table lamp', 'floor lamp', 'pendant lamp'],
     img: lighting,
   },
   {
-    name: 'Objects',
-    categories: 'Tableware / Vase / Textile',
+    category: 'objects',
+    type: ['tableware', 'vase', 'textile', 'clock'],
     img: objects,
   },
 ];
