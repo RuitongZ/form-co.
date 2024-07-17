@@ -1,3 +1,7 @@
+import { useDispatch } from 'react-redux';
+import { filterProducts } from '../redux/productsSlice';
+import { Link as RouterLink } from 'react-router-dom';
+
 import CustomButton from './CustomButton';
 
 import { Box, Typography } from '@mui/material';
@@ -36,6 +40,13 @@ const InfoBox = styled(Box)({
 });
 
 function CategoryCard({ category }) {
+  const dispatch = useDispatch();
+
+  const handleClick = (value) => {
+    dispatch(filterProducts(value));
+    console.log(value);
+  };
+
   return (
     <StyledCard
       onMouseEnter={(e) => {
@@ -50,15 +61,15 @@ function CategoryCard({ category }) {
     >
       <ImgCard
         className='imgCard'
-        key={category.name}
+        key={category.category}
         component='img'
         src={category.img}
-        alt={category.name}
+        alt={category.category}
       />
 
       <InfoBox className='infoBox'>
         <Box
-          key={category.name}
+          key={category.category}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -67,14 +78,50 @@ function CategoryCard({ category }) {
             paddingBottom: '150px',
           }}
         >
-          <Typography sx={{ fontSize: '30px', paddingBottom: '10px' }}>
-            {category.name}
+          <Typography
+            onClick={() => handleClick(category.category)}
+            component={RouterLink}
+            to={`products`}
+            sx={{
+              textDecoration: 'none',
+              textTransform: 'capitalize',
+              color: '#000',
+              fontSize: '30px',
+              paddingBottom: '10px',
+            }}
+          >
+            {category.category}
           </Typography>
-          <Typography sx={{ textAlign: 'center' }}>
-            {category.categories}
-          </Typography>
+
+          <Box sx={{ display: 'flex', gap: '10px' }}>
+            {category.type.map((type, index) => (
+              <Box key={index} sx={{ display: 'flex', gap: '10px' }}>
+                <Typography
+                  component={RouterLink}
+                  to={`products`}
+                  onClick={() => handleClick(type)}
+                  textTransform='capitalize'
+                  sx={{
+                    textDecoration: 'none',
+                    color: '#000',
+                    textAlign: 'center',
+                  }}
+                >
+                  {type}
+                </Typography>
+                {index < category.type.length - 1 && (
+                  <Typography sx={{ color: '#000' }}>/</Typography>
+                )}
+              </Box>
+            ))}
+          </Box>
         </Box>
-        <CustomButton btnName='View more' color='black' />
+        <CustomButton
+          btnName='View more'
+          color='black'
+          RouterLink
+          href={`products`}
+        />
       </InfoBox>
     </StyledCard>
   );
