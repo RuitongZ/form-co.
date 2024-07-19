@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { filterProducts } from '../redux/productsSlice';
+import { selectCategory } from '../redux/categoriesSlice';
 import { Link as RouterLink } from 'react-router-dom';
 
 import CustomButton from './CustomButton';
@@ -44,6 +45,7 @@ function CategoryCard({ category }) {
 
   const handleClick = (value) => {
     dispatch(filterProducts(value));
+    dispatch(selectCategory(value));
     console.log(value);
   };
 
@@ -93,25 +95,36 @@ function CategoryCard({ category }) {
             {category.category}
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: '10px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '5px',
+              flexFlow: 'wrap',
+            }}
+          >
             {category.type.map((type, index) => (
-              <Box key={index} sx={{ display: 'flex', gap: '10px' }}>
-                <Typography
-                  component={RouterLink}
-                  to={`products`}
-                  onClick={() => handleClick(type)}
-                  textTransform='capitalize'
-                  sx={{
-                    textDecoration: 'none',
-                    color: '#000',
-                    textAlign: 'center',
-                  }}
-                >
-                  {type}
-                </Typography>
-                {index < category.type.length - 1 && (
-                  <Typography sx={{ color: '#000' }}>/</Typography>
-                )}
+              <Box key={index} sx={{ display: 'flex', gap: '5px' }}>
+                <Box>
+                  <Typography
+                    component={RouterLink}
+                    to={`products`}
+                    onClick={() => handleClick(type)}
+                    textTransform='capitalize'
+                    sx={{
+                      textDecoration: 'none',
+                      color: '#000',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {type}
+                  </Typography>
+                </Box>
+                <Box>
+                  {index < category.type.length - 1 && (
+                    <Typography sx={{ color: '#000' }}>/</Typography>
+                  )}
+                </Box>
               </Box>
             ))}
           </Box>
@@ -121,6 +134,7 @@ function CategoryCard({ category }) {
           color='black'
           RouterLink
           href={`products`}
+          onClick={() => handleClick(category.category)}
         />
       </InfoBox>
     </StyledCard>
