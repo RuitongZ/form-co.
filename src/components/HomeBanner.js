@@ -1,3 +1,10 @@
+import { useDispatch } from 'react-redux';
+import {
+  filterCarouselProducts,
+  filterProducts,
+  shuffleProducts,
+} from '../redux/productsSlice';
+
 import topBanner from '../images/top-banner.png';
 
 import CustomButton from '../ui/CustomButton';
@@ -17,7 +24,7 @@ const borderBoxStyles = {
     sm: 'column',
     md: 'row',
   },
-  border: '1px, solid',
+  border: '1px solid',
 };
 
 const bannerImgStyles = {
@@ -29,6 +36,14 @@ const bannerImgStyles = {
 };
 
 function HomeBanner() {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(shuffleProducts());
+    dispatch(filterCarouselProducts(null));
+    dispatch(filterProducts(null));
+  };
+
   return (
     <Box sx={homeBannerStyles}>
       <Box sx={borderBoxStyles}>
@@ -65,7 +80,12 @@ function HomeBanner() {
             </Typography>
           </Box>
           <Box>
-            <CustomButton btnName='shop all' color='black' />
+            <CustomButton
+              btnName='shop all'
+              color='black'
+              href={'products'}
+              onClick={handleClick}
+            />
           </Box>
         </Box>
       </Box>

@@ -1,6 +1,8 @@
-import { useRef } from 'react';
-
-import { All_PRODUCTS_DATA } from '../data/all-products-data';
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { filterCarouselProducts, filterProducts } from '../redux/productsSlice';
+import { selectCategory } from '../redux/categoriesSlice';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -10,6 +12,24 @@ import ArrowButton from '../ui/ArrowButton';
 import ItemImgCard from '../ui/ItemImgCard';
 import ItemInfoCard from '../ui/ItemInfoCard';
 import CustomButton from '../ui/CustomButton';
+
+const containerStyles = {
+  backgroundColor: '#EEEAE2',
+  paddingX: { xs: '10px', md: '30px' },
+  paddingY: '100px',
+};
+
+const titleBoxStyles = {
+  display: 'flex',
+  justifyContent: 'center',
+  paddingBottom: '50px',
+};
+
+const carouselBoxStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+};
 
 const responsiveStyles = {
   xl: {
@@ -54,8 +74,27 @@ const responsiveStyles = {
   },
 };
 
-function ImgCarousel({ title }) {
+function ImgCarousel({ title, isFeatured = false, category = '' }) {
   const carouselRef = useRef(null);
+  const dispatch = useDispatch();
+  const carouselProducts = useSelector(
+    (state) => state.products.carouselProducts
+  );
+
+  const handleClick = () => {
+    if (category) {
+      dispatch(selectCategory(category));
+      dispatch(filterProducts(category));
+    }
+    if (isFeatured === true) {
+      dispatch(selectCategory('featured'));
+      dispatch(filterCarouselProducts({ isFeatured: true }));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(filterCarouselProducts({ isFeatured, category }));
+  }, [dispatch, isFeatured, category]);
 
   const handleNext = () => {
     if (carouselRef.current) {
@@ -70,30 +109,16 @@ function ImgCarousel({ title }) {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: '#EEEAE2',
-        paddingX: { xs: '10px', md: '30px' },
-        paddingY: '100px',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          paddingBottom: '50px',
-        }}
-      >
-        <Typography sx={{ fontSize: '32px' }}>{title}</Typography>
+    <Box sx={containerStyles}>
+      <Box sx={titleBoxStyles}>
+        <Typography
+          sx={{ fontSize: { xs: '24px', sm: '26px', md: '28px', lg: '32px' } }}
+        >
+          {title}
+        </Typography>
       </Box>
 
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px',
-        }}
-      >
+      <Box sx={carouselBoxStyles}>
         <ArrowButton direction='left' onClick={handlePrevious} />
 
         <Box
@@ -133,9 +158,9 @@ function ImgCarousel({ title }) {
             slidesToSlide={1}
             swipeable
           >
-            {All_PRODUCTS_DATA.map((item) => (
+            {carouselProducts.map((product) => (
               <Box
-                key={item.id}
+                key={product.id}
                 sx={{
                   overflow: 'hidden',
                   maxWidth: '280px',
@@ -145,8 +170,15 @@ function ImgCarousel({ title }) {
                   margin: '0 auto',
                 }}
               >
-                <ItemImgCard item={item} />
-                <ItemInfoCard item={item} />
+                <RouterLink to={`/products/${product.id}`}>
+                  <ItemImgCard item={product} />
+                </RouterLink>
+                <RouterLink
+                  to={`/products/${product.id}`}
+                  style={{ textDecoration: 'none', color: '#000' }}
+                >
+                  <ItemInfoCard item={product} />
+                </RouterLink>
               </Box>
             ))}
           </Carousel>
@@ -161,7 +193,12 @@ function ImgCarousel({ title }) {
           paddingTop: '50px',
         }}
       >
-        <CustomButton btnName='View all' color='black' />
+        <CustomButton
+          btnName='View all'
+          color='black'
+          href={`/products`}
+          onClick={handleClick}
+        />
       </Box>
     </Box>
   );

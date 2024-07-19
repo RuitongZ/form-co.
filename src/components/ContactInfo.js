@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 
 const bodyContainer = {
   paddingY: '70px',
-  paddingX: { xs: '20px', sm: '40px', md: '60px', lg: '80px' },
+  paddingX: { xs: 0, sm: '20px', md: '60px', lg: '80px' },
   backgroundColor: '#EEEAE2',
   display: 'flex',
   justifyContent: 'center',
@@ -15,7 +15,7 @@ const bodyContainer = {
 
 const imgBox = {
   width: '30%',
-  display: 'flex',
+  display: { xs: 'none', sm: 'flex' },
   justifyContent: 'flex-end',
 };
 
