@@ -1,8 +1,10 @@
+import { useSelector } from 'react-redux';
+
 import ProductsRenderer from '../components/ProductsRenderer';
 import CustomPagination from '../ui/Pagination';
 
 import { Box, Typography } from '@mui/material';
-import ProductFilter from '../ui/ProductFilter';
+import ProductFilters from '../components/ProductFilters';
 
 const bodyContainer = {
   paddingY: '100px',
@@ -24,26 +26,24 @@ const productsBox = {
 };
 
 function Products() {
+  const selectedCategory = useSelector(
+    (state) => state.categories.selectedCategory
+  );
+
   return (
     <Box sx={bodyContainer}>
       <Box sx={bannerBox}>
-        <Typography sx={{ fontSize: '24px' }}>Products</Typography>
+        <Typography sx={{ fontSize: '24px', textTransform: 'capitalize' }}>
+          {selectedCategory}
+        </Typography>
         <Typography sx={{ fontSize: '14px', textAlign: 'center' }}>
           Welcome to Form & Co., where every piece tells a story of design
           excellence and impeccable form.
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          height: '70px',
-          width: '100%',
-          borderTop: '1px solid #000',
-          borderBottom: '1px solid #000',
-          marginBottom: '50px',
-        }}
-      >
-        <ProductFilter />
+      <Box sx={{ mb: '50px' }}>
+        <ProductFilters />
       </Box>
 
       <Box sx={productsBox}>

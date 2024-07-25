@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { All_PRODUCTS_DATA } from '../data/all-products-data';
+import { setProduct } from '../redux/productsSlice';
 
 import { Box, Typography } from '@mui/material';
 import ImgCarousel from '../components/ImgCarousel';
@@ -9,16 +10,15 @@ import ProductDetailRenderer from '../components/ProductDetailRenderer';
 function ProductDetail() {
   const { id } = useParams();
   const productId = parseInt(id, 10);
-  const [product, setProduct] = useState(null);
+
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.products.product);
 
   useEffect(() => {
-    const foundProduct = All_PRODUCTS_DATA.find(
-      (item) => item.id === productId
-    );
-    setProduct(foundProduct);
+    dispatch(setProduct(productId));
 
     window.scrollTo(0, 0);
-  }, [productId]);
+  }, [dispatch, productId]);
 
   if (!product) {
     return (
