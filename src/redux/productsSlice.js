@@ -4,7 +4,7 @@ import { All_PRODUCTS_DATA } from '../data/all-products-data';
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    shuffledProducts: [],
+    shuffledProducts: All_PRODUCTS_DATA,
     filteredProducts: [],
     carouselProducts: [],
     product: null,
@@ -26,7 +26,7 @@ const productsSlice = createSlice({
       const { isFeatured, category } = action.payload;
       state.carouselProducts = All_PRODUCTS_DATA.filter(
         (item) =>
-          (isFeatured ? item.featured === 'true' : true) &&
+          (isFeatured ? item.featured === true : true) &&
           (category ? item.category === category : true)
       );
     },
@@ -43,6 +43,38 @@ const productsSlice = createSlice({
       state.filteredProducts = filteredValue;
     },
 
+    setPriceLtoH: (state) => {
+      const parsePrice = (price) => parseFloat(price.replace(',', ''));
+      state.shuffledProducts = [...state.shuffledProducts].sort(
+        (a, b) => parsePrice(a.price) - parsePrice(b.price)
+      );
+
+      state.filteredProducts = [...state.filteredProducts].sort(
+        (a, b) => parsePrice(a.price) - parsePrice(b.price)
+      );
+    },
+
+    setPriceHtoL: (state) => {
+      const parsePrice = (price) => parseFloat(price.replace(',', ''));
+      state.shuffledProducts = [...state.shuffledProducts].sort(
+        (a, b) => parsePrice(b.price) - parsePrice(a.price)
+      );
+
+      state.filteredProducts = [...state.filteredProducts].sort(
+        (a, b) => parsePrice(b.price) - parsePrice(a.price)
+      );
+    },
+
+    setAtoZ: (state) => {
+      state.shuffledProducts = [...state.shuffledProducts].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+
+      state.filteredProducts = [...state.filteredProducts].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+    },
+
     setProduct: (state, action) => {
       const productId = action.payload;
       const foundProduct = All_PRODUCTS_DATA.find(
@@ -57,6 +89,9 @@ export const {
   shuffleProducts,
   filterCarouselProducts,
   filterProducts,
+  setPriceLtoH,
+  setPriceHtoL,
+  setAtoZ,
   setProduct,
 } = productsSlice.actions;
 
