@@ -88,6 +88,7 @@ function ImgCarousel({ title, isFeatured = false, category = '' }) {
     }
     if (isFeatured === true) {
       dispatch(selectCategory('featured'));
+      dispatch(filterProducts('reset'));
       dispatch(filterCarouselProducts({ isFeatured: true }));
     }
   };

@@ -67,6 +67,19 @@ const productPriceStyles = {
   paddingY: '20px',
 };
 
+const formatCurrency = (value) => {
+  return (
+    'C' +
+    new Intl.NumberFormat('en-CA', {
+      style: 'currency',
+      currency: 'CAD',
+      minimumIntegerDigits: 2,
+    }).format(value)
+  );
+};
+
+const formattedItemPrice = (price) => formatCurrency(price);
+
 function ProductDetailRenderer({ product }) {
   const [selectedImage, setSelectedImage] = useState(product.img[0]);
 
@@ -134,13 +147,15 @@ function ProductDetailRenderer({ product }) {
             ) : undefined}
 
             <Box>
-              <Typography sx={productPriceStyles}>{product.price}</Typography>
+              <Typography sx={productPriceStyles}>
+                {formattedItemPrice(product.price)}
+              </Typography>
             </Box>
           </Box>
         </Box>
 
         <Box>
-          <AddToCart />
+          <AddToCart item={product} />
         </Box>
 
         <Box sx={{ mb: '50px' }}>

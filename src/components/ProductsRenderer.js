@@ -1,6 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  filterCarouselProducts,
+  filterProducts,
+  shuffleProducts,
+} from '../redux/productsSlice';
+import { selectCategory } from '../redux/categoriesSlice';
 
-import { All_PRODUCTS_DATA } from '../data/all-products-data';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { Box, Grid } from '@mui/material';
 import ItemImgCard from '../ui/ItemImgCard';
@@ -21,26 +28,39 @@ const itemBoxStyles = {
   justifyContent: 'center',
 };
 
-const shuffleArray = (array) => {
-  let shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-  }
-  return shuffledArray;
-};
-
 function ProductsRenderer() {
-  const [shuffledProducts, setShuffledProducts] = useState([]);
+  const dispatch = useDispatch();
+
+  const shuffledProducts = useSelector(
+    (state) => state.products.shuffledProducts
+  );
+
+  const filteredProducts = useSelector(
+    (state) => state.products.filteredProducts
+  );
+
+  const carouselProducts = useSelector(
+    (state) => state.products.carouselProducts
+  );
+
+  const products =
+    filteredProducts.length > 0
+      ? filteredProducts
+      : carouselProducts.length > 0
+      ? carouselProducts
+      : shuffledProducts;
+
+  console.log('filteredProducts', filteredProducts);
+  console.log('carouselProducts', carouselProducts);
+  console.log('shuffledProducts', shuffledProducts);
 
   useEffect(() => {
-    const shuffled = shuffleArray(All_PRODUCTS_DATA);
-    setShuffledProducts(shuffled);
-  }, []);
+    window.scrollTo(0, 0);
+  }, [dispatch]);
 
   return (
     <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
-      {shuffledProducts.map((item) => (
+      {products.map((item) => (
         <Grid
           item
           key={item.id}
@@ -51,8 +71,16 @@ function ProductsRenderer() {
           sx={itemGridStyles}
         >
           <Box sx={itemBoxStyles}>
-            <ItemImgCard item={item} />
-            <ItemInfoCard item={item} />
+            <RouterLink to={`${item.id}`}>
+              <ItemImgCard item={item} />
+            </RouterLink>
+
+            <RouterLink
+              to={`${item.id}`}
+              style={{ textDecoration: 'none', color: '#000' }}
+            >
+              <ItemInfoCard item={item} />
+            </RouterLink>
           </Box>
         </Grid>
       ))}

@@ -4,6 +4,7 @@ import {
   filterProducts,
   shuffleProducts,
 } from '../redux/productsSlice';
+import { selectCategory } from '../redux/categoriesSlice';
 
 import topBanner from '../images/top-banner.png';
 
@@ -40,8 +41,9 @@ function HomeBanner() {
 
   const handleClick = () => {
     dispatch(shuffleProducts());
-    dispatch(filterCarouselProducts(null));
-    dispatch(filterProducts(null));
+    dispatch(filterCarouselProducts({ category: 'reset' }));
+    dispatch(filterProducts('reset'));
+    dispatch(selectCategory('All Products'));
   };
 
   return (

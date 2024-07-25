@@ -1,5 +1,12 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  shuffleProducts,
+  filterCarouselProducts,
+  filterProducts,
+} from '../redux/productsSlice';
+import { selectCategory } from '../redux/categoriesSlice';
+import { NavLink as RouterLink } from 'react-router-dom';
 
 import {
   AppBar,
@@ -18,7 +25,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useState } from 'react';
+import CartDrawer from './CartDrawer';
 
 const appBarStyles = {
   height: { sm: '70px', md: '90px' },
@@ -45,21 +52,15 @@ const containerGridStyles = {
 
 const meunBtnStyles = {
   paddingLeft: 0,
-  // paddingRight: '50px',
   gap: '50px',
   paddingY: 0,
   minWidth: 0,
-  ':hover': {
-    backgroundColor: 'transparent',
-  },
-};
-
-const menuTextStyles = {
   color: '#000',
-  fontSize: { sm: '10px', md: '12px', lg: '13px', xl: '16px' },
+  fontSize: { sm: '10px', md: '12px', lg: '14px', xl: '16px' },
   textTransform: 'capitalize',
+  textDecoration: 'none',
   fontWeight: '400',
-  ':hover': {
+  '&:hover': {
     fontWeight: '600',
   },
 };
@@ -77,13 +78,55 @@ const iconButtonStyles = {
   paddingLeft: { xs: '10px', sm: '20px', md: '30px' },
 };
 
-const pages = ['Designers', 'Products', 'About', 'Contact'];
+const iconSizes = {
+  width: { xs: '20px', sm: '25px', md: '28px' },
+  height: { xs: '20px', sm: '25px', md: '28px' },
+};
+
+const redQuantityIcon = {
+  backgroundColor: 'red',
+  borderRadius: '50px',
+  width: { xs: '16px', md: '18px' },
+  height: { xs: '16px', md: '18px' },
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+  top: '-10px',
+  right: '10px',
+};
+
+const pages = ['brands', 'products', 'about', 'contact'];
 
 function Header() {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [clickedPage, setClickedPage] = useState(null);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  const handleClick = (page) => {
+    if (page === 'products') {
+      dispatch(shuffleProducts());
+      dispatch(filterCarouselProducts({ category: 'reset' }));
+      dispatch(filterProducts('reset'));
+      dispatch(selectCategory('All Products'));
+    }
+    setClickedPage(page);
+  };
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
+  };
+
+  const toggleCartDrawer = (newOpen) => () => {
+    setCartOpen(newOpen);
   };
 
   const DrawerList = (
@@ -92,13 +135,24 @@ function Header() {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
+      <List sx={{ p: '30px' }}>
         {pages.map((page) => (
-          <ListItem key={page}>
+          <ListItem key={page} sx={{ p: 0 }}>
             <ListItemButton
               disableRipple
               component={RouterLink}
-              to={`/${page}`}
+              to={`${page}`}
+              onClick={() => handleClick(page)}
+              sx={{
+                textTransform: 'capitalize',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  textDecorationLine: 'line-through',
+                },
+
+                textDecorationLine:
+                  clickedPage === page ? 'line-through' : 'none',
+              }}
             >
               {page}
             </ListItemButton>
@@ -129,7 +183,7 @@ function Header() {
                 onClick={toggleDrawer(true)}
                 sx={{ padding: 0, color: '#000' }}
               >
-                <MenuIcon fontSize='large' />
+                <MenuIcon sx={iconSizes} />
               </IconButton>
               <Drawer
                 anchor='left'
@@ -157,27 +211,34 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <Button
-                  disableRipple
+                <Typography
                   key={page}
                   component={RouterLink}
-                  to={`/${page}`}
-                  sx={meunBtnStyles}
+                  to={`${page}`}
+                  onClick={() => handleClick(page)}
+                  sx={{
+                    ...meunBtnStyles,
+                    fontWeight: clickedPage === page ? 600 : 400,
+                  }}
                 >
-                  <Typography sx={menuTextStyles}>{page}</Typography>
-                </Button>
+                  {page}
+                </Typography>
               ))}
             </Grid>
 
             <Grid
               item
               xs={4}
-              sx={{ display: 'flex', justifyContent: 'center', paddingLeft: 0 }}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                paddingLeft: 0,
+              }}
             >
               <Button
                 disableRipple
                 component={RouterLink}
-                to={'/'}
+                to={''}
                 sx={logoBtnStyles}
               >
                 <Typography
@@ -185,7 +246,7 @@ function Header() {
                   sx={{
                     color: '#000',
                     fontSize: {
-                      xs: '24px',
+                      xs: '20px',
                       sm: '30px',
                       md: '30px',
                       lg: '36px',
@@ -208,18 +269,34 @@ function Header() {
               }}
             >
               <IconButton disableRipple sx={iconButtonStyles}>
-                <PersonIcon fontSize='medium' />
+                <PersonIcon sx={iconSizes} />
               </IconButton>
               <IconButton disableRipple sx={iconButtonStyles}>
-                <SearchIcon fontSize='medium' />
+                <SearchIcon sx={iconSizes} />
               </IconButton>
-              <IconButton disableRipple sx={iconButtonStyles}>
-                <ShoppingCartOutlinedIcon fontSize='medium' />
+              <IconButton
+                disableRipple
+                onClick={toggleCartDrawer(true)}
+                sx={iconButtonStyles}
+              >
+                <ShoppingCartOutlinedIcon sx={iconSizes} />
+
+                {totalQuantity > 0 ? (
+                  <Box sx={redQuantityIcon}>
+                    <Typography fontSize='10px' fontWeight={500} color='#fff'>
+                      {totalQuantity}
+                    </Typography>
+                  </Box>
+                ) : (
+                  ''
+                )}
               </IconButton>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
+
+      <CartDrawer open={cartOpen} onClose={toggleCartDrawer(false)} />
     </>
   );
 }
