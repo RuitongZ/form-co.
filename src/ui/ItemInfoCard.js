@@ -1,6 +1,17 @@
-import { Link as RouterLink } from 'react-router-dom';
-
 import { Box, Typography } from '@mui/material';
+
+const formatCurrency = (value) => {
+  return (
+    'C' +
+    new Intl.NumberFormat('en-CA', {
+      style: 'currency',
+      currency: 'CAD',
+      minimumIntegerDigits: 2,
+    }).format(value)
+  );
+};
+
+const formattedItemPrice = (price) => formatCurrency(price);
 
 function ItemInfoCard({ item }) {
   return (
@@ -45,7 +56,7 @@ function ItemInfoCard({ item }) {
             color: '#898989',
           }}
         >
-          {item.price}
+          {formattedItemPrice(item.price)}
         </Typography>
       </Box>
     </Box>

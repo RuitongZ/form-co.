@@ -1,10 +1,11 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../redux/cartSlice';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import CartDrawer from '../components/CartDrawer';
+import AddAndRomoveBtn from './AddAndRemoveBtn';
 
 const containerStyles = {
   display: 'flex',
@@ -12,29 +13,6 @@ const containerStyles = {
   paddingTop: '30px',
   paddingBottom: '40px',
   gap: '30px',
-};
-
-const addAndRemoveBoxStyles = {
-  width: { xs: '25%', sm: '35%' },
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  border: '1px solid #000',
-};
-
-const addAndRemoveButtonStyles = {
-  minWidth: '40px',
-  height: '40px',
-  padding: 0,
-  color: '#000',
-  '&:hover': { backgroundColor: 'transparent' },
-};
-
-const numberStyles = {
-  fontSize: '18px',
-  minWidth: '20px',
-  display: 'flex',
-  justifyContent: 'center',
 };
 
 const addToCartButtonStyles = {
@@ -50,58 +28,37 @@ const addToCartButtonStyles = {
   '&:hover': { backgroundColor: '#2E2E2E' },
 };
 
-const reducer = (state, action) => {
-  if (action.type === 'increment') {
-    return {
-      quantity: state.quantity + 1,
-    };
-  }
-
-  if (action.type === 'decrement') {
-    return {
-      quantity: state.quantity > 0 ? state.quantity - 1 : 0,
-    };
-  }
-};
-
-function AddToCart() {
+function AddToCart({ item }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-  const [state, dispatch] = useReducer(reducer, { quantity: 0 });
+
+  const handleAddToCart = () => {
+    if (quantity > 0) {
+      dispatch(addItemToCart({ ...item, quantity }));
+      toggleDrawer(true)();
+    }
+  };
+
+  const handleIncrement = () => setQuantity(quantity + 1);
+  const handleDecrement = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
 
   return (
     <Box sx={containerStyles}>
-      <Box sx={addAndRemoveBoxStyles}>
-        <Button
-          disableRipple
-          sx={addAndRemoveButtonStyles}
-          onClick={() => {
-            dispatch({ type: 'decrement' });
-          }}
-        >
-          <RemoveIcon fontSize='small' />
-        </Button>
-
-        <Typography sx={numberStyles}>{state.quantity}</Typography>
-
-        <Button
-          disableRipple
-          sx={addAndRemoveButtonStyles}
-          onClick={() => {
-            dispatch({ type: 'increment' });
-          }}
-        >
-          <AddIcon fontSize='small' color='#000' />
-        </Button>
-      </Box>
+      <AddAndRomoveBtn
+        quantity={quantity}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+      />
 
       <Box sx={{ width: { xs: '75%', sm: '65%' } }}>
         <Button
           disableRipple
-          onClick={toggleDrawer(true)}
+          onClick={handleAddToCart}
           sx={addToCartButtonStyles}
         >
           Add to cart

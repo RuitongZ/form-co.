@@ -1,0 +1,35 @@
+import { Box, Button, Typography } from '@mui/material';
+
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+
+const buttonStyles = {
+  padding: 0,
+  minWidth: 0,
+  color: '#000',
+  '&:hover': { backgroundColor: 'transparent' },
+};
+
+function IncreDecreBtn({ quantity, onIncrement, onDecrement }) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+      }}
+    >
+      <Button disableRipple onClick={onDecrement} sx={buttonStyles}>
+        <RemoveIcon fontSize='small' color='#000' />
+      </Button>
+
+      <Typography>{quantity}</Typography>
+
+      <Button disableRipple onClick={onIncrement} sx={buttonStyles}>
+        <AddIcon fontSize='small' color='#000' />
+      </Button>
+    </Box>
+  );
+}
+
+export default IncreDecreBtn;
