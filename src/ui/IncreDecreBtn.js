@@ -23,7 +23,9 @@ function IncreDecreBtn({ quantity, onIncrement, onDecrement }) {
         <RemoveIcon fontSize='small' color='#000' />
       </Button>
 
-      <Typography>{quantity}</Typography>
+      <Typography fontSize='14px' fontWeight={600}>
+        {quantity}
+      </Typography>
 
       <Button disableRipple onClick={onIncrement} sx={buttonStyles}>
         <AddIcon fontSize='small' color='#000' />

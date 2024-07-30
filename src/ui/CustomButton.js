@@ -10,18 +10,18 @@ function CustomButton({ btnName, color, href, onClick }) {
       disableRipple
       component={RouterLink}
       to={href}
-      onClick={() => onClick(btnName)}
+      onClick={onClick}
       sx={{
         flexGrow: 1,
         maxWidth: '200px',
         maxHeight: '50px',
         padding: '12px 40px ',
-        border: `1px solid ${isBlack ? '#000' : '#fff'}`,
+        border: `1px solid ${isBlack ? '#000' : 'transparent'}`,
         borderRadius: '50px',
         color: isBlack ? '#000' : '#fff',
         backgroundColor: isBlack ? 'transparent' : '#000',
         textTransform: 'capitalize',
-        fontSize: '12px',
+        fontSize: { xs: '10px', sm: '12px' },
         fontWeight: '400',
         ':hover': {
           color: isBlack ? '#fff' : '#000',
