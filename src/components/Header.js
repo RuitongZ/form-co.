@@ -66,10 +66,11 @@ const meunBtnStyles = {
 };
 
 const logoBtnStyles = {
+  minWidth: 0,
+  padding: 0,
   ':hover': {
     backgroundColor: 'transparent',
   },
-  padding: 0,
 };
 
 const iconButtonStyles = {

@@ -8,6 +8,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 
 import IncreDecreBtn from '../ui/IncreDecreBtn';
 import CustomButton from '../ui/CustomButton';
+import XsCart from './XsCart';
 
 const box1 = {
   display: 'flex',
@@ -19,14 +20,6 @@ const box1 = {
   pb: '10px',
 };
 
-const box2 = {
-  px: '30px',
-  py: '15px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
-  gap: '20px',
-};
 const box3 = {
   backgroundColor: '#fff',
   position: 'fixed',
@@ -48,11 +41,9 @@ const freeShippingSlogan = {
 const closeDrawerBtn = {
   minWidth: 0,
   padding: 0,
-  color: '#fff',
-  backgroundColor: '#000',
-  borderRadius: '50px',
+  color: '#000',
   '&:hover': {
-    backgroundColor: '#000',
+    backgroundColor: 'transparent',
   },
 };
 
@@ -85,9 +76,11 @@ const quantityAndPrice = {
 
 const clearBtnStyles = {
   minWidth: 0,
-  padding: 0,
-  color: '#000',
-  '&:hover': { backgroundColor: 'transparent' },
+  padding: '1px',
+  color: '#fff',
+  backgroundColor: '#000',
+  borderRadius: '50px',
+  '&:hover': { backgroundColor: '#000', borderRadius: '50px' },
 };
 
 const productImageStyles = {
@@ -154,18 +147,6 @@ function CartDrawer({ open, onClose }) {
 
   const formattedTotalPrice = formatCurrency(totalPrice);
 
-  // const formattedTotalPrice = () => {
-  //   return (
-  //     'C$' +
-  //     new Intl.NumberFormat('en-CA', {
-  //       // style: 'currency',
-  //       // currency: 'CAD',
-  //       minimumIntegerDigits: 2,
-  //       maximumFractionDigits: 2,
-  //     }).format(totalPrice)
-  //   );
-  // };
-
   const DrawerList = (
     <Box role='presentation' onKeyDown={onClose}>
       <Box sx={box1}>
@@ -182,63 +163,17 @@ function CartDrawer({ open, onClose }) {
         </Typography>
       </Box>
 
-      {cartItems.length > 0 ? (
-        cartItems.map((item) => (
-          <Box key={item.id} sx={box2}>
-            <Box
-              component='img'
-              src={item.img[0]}
-              alt={item.name}
-              sx={productImageStyles}
-            />
+      <Box sx={{ px: '20px' }}>
+        <XsCart
+          cartItems={cartItems}
+          onClick={handleRemoveItem}
+          onIncrement={handleUpdateQuantity}
+          onDecrement={handleUpdateQuantity}
+          formattedItemPrice={formattedItemPrice}
+        />
+      </Box>
 
-            <Box sx={cartInfoBox}>
-              <Box sx={productNameStyles}>
-                <div>
-                  <Typography fontWeight={600} fontSize='14px'>
-                    {item.name}
-                  </Typography>
-                  <Typography fontSize='14px'>- {item.color}</Typography>
-                </div>
-
-                <Button
-                  disableRipple
-                  onClick={() => handleRemoveItem(item.id)}
-                  sx={clearBtnStyles}
-                >
-                  <ClearIcon fontSize='small' />
-                </Button>
-              </Box>
-
-              <Box sx={quantityAndPrice}>
-                <IncreDecreBtn
-                  quantity={item.quantity}
-                  onDecrement={() =>
-                    handleUpdateQuantity(
-                      item.id,
-                      item.quantity > 0 ? item.quantity - 1 : 0
-                    )
-                  }
-                  onIncrement={() =>
-                    handleUpdateQuantity(item.id, item.quantity + 1)
-                  }
-                />
-                <Typography fontSize='14px'>
-                  {formattedItemPrice(item.price, item.quantity)}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        ))
-      ) : (
-        <Box sx={emptyBox}>
-          <Typography fontSize='14px' color='grey'>
-            Your cart is empty!
-          </Typography>
-        </Box>
-      )}
-
-      {/* BOTTOM */}
+      {/* CHECK OUT */}
       <Box sx={box3}>
         <Box sx={subtotalBox}>
           <Typography>Subtotal:</Typography>
@@ -246,8 +181,18 @@ function CartDrawer({ open, onClose }) {
         </Box>
 
         <Box sx={checkoutBox}>
-          <CustomButton btnName='view cart' color='white' />
-          <CustomButton btnName='check out' color='white' />
+          <CustomButton
+            href={'/cart'}
+            onClick={onClose}
+            btnName='view cart'
+            color='white'
+          />
+          <CustomButton
+            href={'/cart'}
+            onClick={onClose}
+            btnName='checkout'
+            color='white'
+          />
         </Box>
       </Box>
     </Box>

@@ -19,7 +19,7 @@ const bodyContainer = {
 const imageBoxStyles = {
   width: { xs: '100%', md: '53%' },
   display: 'flex',
-  gap: '20px',
+  gap: { xs: '10px', sm: '20px' },
 };
 
 const tabImageBoxStyles = {
@@ -29,7 +29,7 @@ const tabImageBoxStyles = {
 };
 
 const tabImageStyles = {
-  width: { xs: '50px', sm: '80px', md: '70px', lg: '80px' },
+  width: { xs: '30px', sm: '80px', md: '70px', lg: '80px' },
   objectFit: 'cover',
   border: '1px solid #000',
   backgroundColor: '#fff',
@@ -38,7 +38,7 @@ const tabImageStyles = {
 
 const mainImageStyles = {
   width: '100%',
-  height: { xs: '75vh', sm: '100vh', md: '90vh', lg: '100vh' },
+  height: { xs: '60vh', sm: '80vh', md: '90vh', lg: '100vh' },
   border: '1px solid #000',
   backgroundColor: '#fff',
   objectFit: 'cover',
