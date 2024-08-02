@@ -21,11 +21,13 @@ function CustomButton({ btnName, color, href, onClick }) {
         color: isBlack ? '#000' : '#fff',
         backgroundColor: isBlack ? 'transparent' : '#000',
         textTransform: 'capitalize',
+        textAlign: 'center',
+        lineHeight: '15px',
         fontSize: { xs: '10px', sm: '12px' },
         fontWeight: '400',
         ':hover': {
           color: isBlack ? '#fff' : '#000',
-          backgroundColor: isBlack ? '#000' : '#fff',
+          backgroundColor: isBlack ? '#000' : 'transparent',
           border: `${isBlack ? '1px solid transparent' : '1px solid #000'}`,
         },
       }}
