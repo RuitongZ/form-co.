@@ -4,6 +4,7 @@ import {
   filterProducts,
   shuffleProducts,
   filterCarouselProducts,
+  setCurrentPage,
 } from '../redux/productsSlice';
 import { selectCategory } from '../redux/categoriesSlice';
 
@@ -25,10 +26,10 @@ function FilterDrawerList({ onClick, onKeyDown }) {
   const [clickedItem, setClickedItem] = useState(null);
 
   const handleClickAll = () => {
-    dispatch(shuffleProducts());
     dispatch(filterProducts('reset'));
-    dispatch(selectCategory('All Products'));
     dispatch(filterCarouselProducts({ category: 'reset' }));
+    dispatch(shuffleProducts());
+    dispatch(selectCategory('All Products'));
     setClickedItem('all');
 
     console.log('all');

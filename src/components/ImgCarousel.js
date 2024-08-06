@@ -87,8 +87,8 @@ function ImgCarousel({ title, isFeatured = false, category = '' }) {
       dispatch(filterProducts(category));
     }
     if (isFeatured === true) {
-      dispatch(selectCategory('featured'));
       dispatch(filterProducts('reset'));
+      dispatch(selectCategory('featured'));
       dispatch(filterCarouselProducts({ isFeatured: true }));
     }
   };

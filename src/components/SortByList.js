@@ -4,9 +4,9 @@ import {
   filterCarouselProducts,
   filterProducts,
   setAtoZ,
+  setCurrentPage,
   setPriceHtoL,
   setPriceLtoH,
-  shuffleProducts,
 } from '../redux/productsSlice';
 import { selectCategory } from '../redux/categoriesSlice';
 
@@ -23,22 +23,22 @@ function SortByList({ onClick, onKeyDown }) {
 
   const handleClick = (type) => {
     setClickedItem(type);
+    dispatch(setCurrentPage(1));
 
     if (type === 'featured') {
-      dispatch(filterCarouselProducts({ isFeatured: true }));
       dispatch(filterProducts('reset'));
-      dispatch(selectCategory(type));
-      // dispatch(shuffleProducts());
+      dispatch(filterCarouselProducts({ isFeatured: true }));
+      dispatch(selectCategory('featured'));
     } else if (type === 'price low to high') {
-      dispatch(filterCarouselProducts({ category: 'reset' }));
+      // dispatch(filterCarouselProducts({ category: 'reset' }));
       dispatch(setPriceLtoH());
       dispatch(selectCategory('price low to high'));
     } else if (type === 'price high to low') {
-      dispatch(filterCarouselProducts({ category: 'reset' }));
+      // dispatch(filterCarouselProducts({ category: 'reset' }));
       dispatch(setPriceHtoL());
       dispatch(selectCategory('price high to low'));
     } else if (type === 'A to Z') {
-      dispatch(filterCarouselProducts({ category: 'reset' }));
+      // dispatch(filterCarouselProducts({ category: 'reset' }));
       dispatch(setAtoZ());
       dispatch(selectCategory('A to Z'));
     }

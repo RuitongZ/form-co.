@@ -26,6 +26,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import CartDrawer from './CartDrawer';
+import Brands from '../pages/Brands';
+import { setClickedPage } from '../redux/pagesSlice';
 
 const appBarStyles = {
   height: { sm: '70px', md: '90px' },
@@ -73,6 +75,17 @@ const logoBtnStyles = {
   },
 };
 
+const logoSize = {
+  color: '#000',
+  fontSize: {
+    xs: '20px',
+    sm: '30px',
+    md: '30px',
+    lg: '36px',
+    xl: '40px',
+  },
+};
+
 const iconButtonStyles = {
   color: '#000',
   padding: 0,
@@ -102,10 +115,11 @@ const pages = ['brands', 'products', 'about', 'contact'];
 function Header() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [clickedPage, setClickedPage] = useState(null);
   const [cartOpen, setCartOpen] = useState(false);
+  // const [clickedPage, setClickedPage] = useState(null);
 
   const cartItems = useSelector((state) => state.cart.items);
+  const clickedPage = useSelector((state) => state.pages.clickedPage);
 
   const totalQuantity = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -114,12 +128,16 @@ function Header() {
 
   const handleClick = (page) => {
     if (page === 'products') {
-      dispatch(shuffleProducts());
       dispatch(filterCarouselProducts({ category: 'reset' }));
       dispatch(filterProducts('reset'));
+      dispatch(shuffleProducts());
       dispatch(selectCategory('All Products'));
     }
-    setClickedPage(page);
+    dispatch(setClickedPage(page));
+  };
+
+  const handleHomeClick = () => {
+    dispatch(setClickedPage(null));
   };
 
   const toggleDrawer = (newOpen) => () => {
@@ -238,23 +256,12 @@ function Header() {
             >
               <Button
                 disableRipple
+                onClick={handleHomeClick}
                 component={RouterLink}
                 to={''}
                 sx={logoBtnStyles}
               >
-                <Typography
-                  variant='h2'
-                  sx={{
-                    color: '#000',
-                    fontSize: {
-                      xs: '20px',
-                      sm: '30px',
-                      md: '30px',
-                      lg: '36px',
-                      xl: '40px',
-                    },
-                  }}
-                >
+                <Typography variant='h2' sx={logoSize}>
                   Form & Co.
                 </Typography>
               </Button>

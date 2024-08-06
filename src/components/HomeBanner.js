@@ -40,9 +40,9 @@ function HomeBanner() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(shuffleProducts());
     dispatch(filterCarouselProducts({ category: 'reset' }));
     dispatch(filterProducts('reset'));
+    dispatch(shuffleProducts());
     dispatch(selectCategory('All Products'));
   };
 

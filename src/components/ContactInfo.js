@@ -27,7 +27,7 @@ const imgStyles = {
 };
 
 const accordionBox = {
-  width: '70%',
+  width: { xs: '85%', sm: '70%' },
   paddingTop: '20px',
   display: 'flex',
   flexDirection: 'column',

@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  filterCarouselProducts,
-  filterProducts,
-  shuffleProducts,
-} from '../redux/productsSlice';
-import { selectCategory } from '../redux/categoriesSlice';
+import { useSelector } from 'react-redux';
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -29,38 +23,19 @@ const itemBoxStyles = {
 };
 
 function ProductsRenderer() {
-  const dispatch = useDispatch();
-
-  const shuffledProducts = useSelector(
-    (state) => state.products.shuffledProducts
+  const displayedProducts = useSelector(
+    (state) => state.products.displayedProducts
   );
 
-  const filteredProducts = useSelector(
-    (state) => state.products.filteredProducts
-  );
-
-  const carouselProducts = useSelector(
-    (state) => state.products.carouselProducts
-  );
-
-  const products =
-    filteredProducts.length > 0
-      ? filteredProducts
-      : carouselProducts.length > 0
-      ? carouselProducts
-      : shuffledProducts;
-
-  console.log('filteredProducts', filteredProducts);
-  console.log('carouselProducts', carouselProducts);
-  console.log('shuffledProducts', shuffledProducts);
+  console.log('Products:', displayedProducts);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [dispatch]);
+  }, []);
 
   return (
     <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
-      {products.map((item) => (
+      {displayedProducts.map((item) => (
         <Grid
           item
           key={item.id}

@@ -2,11 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItemFromCart, updateItemQuantity } from '../redux/cartSlice';
 
 import { Drawer, Box, Typography, Button } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
-import IncreDecreBtn from '../ui/IncreDecreBtn';
 import CustomButton from '../ui/CustomButton';
 import XsCart from './XsCart';
 
@@ -47,51 +45,6 @@ const closeDrawerBtn = {
   },
 };
 
-const cartInfoBox = {
-  display: 'flex',
-  flexGrow: 1,
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  height: '100px',
-};
-
-const emptyBox = {
-  display: 'flex',
-  justifyContent: 'center',
-  py: '50px',
-  gap: '10px',
-};
-
-const productNameStyles = {
-  display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'space-between',
-};
-
-const quantityAndPrice = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-};
-
-const clearBtnStyles = {
-  minWidth: 0,
-  padding: '1px',
-  color: '#fff',
-  backgroundColor: '#000',
-  borderRadius: '50px',
-  '&:hover': { backgroundColor: '#000', borderRadius: '50px' },
-};
-
-const productImageStyles = {
-  minWidth: '100px',
-  height: '100px',
-  objectFit: 'cover',
-  border: '1px solid #000',
-  backgroundColor: '#fff',
-  cursor: 'pointer',
-};
-
 const subtotalBox = {
   paddingX: '30px',
   paddingY: '10px',
@@ -126,8 +79,6 @@ const formattedItemPrice = (price, quantity) =>
 function CartDrawer({ open, onClose }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
-
-  console.log(cartItems);
 
   const handleRemoveItem = (id) => {
     dispatch(removeItemFromCart(id));
