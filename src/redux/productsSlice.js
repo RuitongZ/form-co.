@@ -8,6 +8,10 @@ const productsSlice = createSlice({
     filteredProducts: [],
     carouselProducts: [],
     product: null,
+
+    displayedProducts: All_PRODUCTS_DATA.slice(0, 12),
+    currentPage: 1,
+    itemsPerPage: 12,
   },
   reducers: {
     shuffleProducts: (state) => {
@@ -20,15 +24,29 @@ const productsSlice = createSlice({
         ];
       }
       state.shuffledProducts = shuffledArray;
+
+      state.currentPage = 1;
+      state.displayedProducts = shuffledArray.slice(0, state.itemsPerPage);
+
+      console.log('shuffleProducts:', shuffledArray, state.displayedProducts);
     },
 
     filterCarouselProducts: (state, action) => {
       const { isFeatured, category } = action.payload;
-      state.carouselProducts = All_PRODUCTS_DATA.filter(
+      const filteredCarouselProducts = All_PRODUCTS_DATA.filter(
         (item) =>
           (isFeatured ? item.featured === true : true) &&
           (category ? item.category === category : true)
       );
+      state.carouselProducts = filteredCarouselProducts;
+
+      state.currentPage = 1;
+      state.displayedProducts = filteredCarouselProducts.slice(
+        0,
+        state.itemsPerPage
+      );
+
+      console.log('carouselProducts:', filteredCarouselProducts);
     },
 
     filterProducts: (state, action) => {
@@ -41,6 +59,11 @@ const productsSlice = createSlice({
           (value ? item.type === value : true)
       );
       state.filteredProducts = filteredValue;
+
+      state.currentPage = 1;
+      state.displayedProducts = filteredValue.slice(0, state.itemsPerPage);
+
+      console.log('filteredProducts:', filteredValue);
     },
 
     setPriceLtoH: (state) => {
@@ -52,6 +75,17 @@ const productsSlice = createSlice({
       state.filteredProducts = [...state.filteredProducts].sort(
         (a, b) => parsePrice(a.price) - parsePrice(b.price)
       );
+
+      state.carouselProducts = [...state.carouselProducts].sort(
+        (a, b) => parsePrice(a.price) - parsePrice(b.price)
+      );
+
+      state.displayedProducts =
+        state.filteredProducts.length > 0
+          ? state.filteredProducts.slice(0, state.itemsPerPage)
+          : state.carouselProducts.length > 0
+          ? state.carouselProducts.slice(0, state.itemsPerPage)
+          : state.shuffledProducts.slice(0, state.itemsPerPage);
     },
 
     setPriceHtoL: (state) => {
@@ -63,6 +97,17 @@ const productsSlice = createSlice({
       state.filteredProducts = [...state.filteredProducts].sort(
         (a, b) => parsePrice(b.price) - parsePrice(a.price)
       );
+
+      state.carouselProducts = [...state.carouselProducts].sort(
+        (a, b) => parsePrice(b.price) - parsePrice(a.price)
+      );
+
+      state.displayedProducts =
+        state.filteredProducts.length > 0
+          ? state.filteredProducts.slice(0, state.itemsPerPage)
+          : state.carouselProducts.length > 0
+          ? state.carouselProducts.slice(0, state.itemsPerPage)
+          : state.shuffledProducts.slice(0, state.itemsPerPage);
     },
 
     setAtoZ: (state) => {
@@ -73,6 +118,17 @@ const productsSlice = createSlice({
       state.filteredProducts = [...state.filteredProducts].sort((a, b) =>
         a.name.localeCompare(b.name)
       );
+
+      state.carouselProducts = [...state.carouselProducts].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+
+      state.displayedProducts =
+        state.filteredProducts.length > 0
+          ? state.filteredProducts.slice(0, state.itemsPerPage)
+          : state.carouselProducts.length > 0
+          ? state.carouselProducts.slice(0, state.itemsPerPage)
+          : state.shuffledProducts.slice(0, state.itemsPerPage);
     },
 
     setProduct: (state, action) => {
@@ -81,6 +137,21 @@ const productsSlice = createSlice({
         (item) => item.id === productId
       );
       state.product = foundProduct || null;
+    },
+
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+      const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+      const endIndex = startIndex + state.itemsPerPage;
+
+      state.displayedProducts =
+        state.filteredProducts.length > 0
+          ? state.filteredProducts.slice(startIndex, endIndex)
+          : state.carouselProducts.length > 0
+          ? state.carouselProducts.slice(startIndex, endIndex)
+          : state.shuffledProducts.slice(startIndex, endIndex);
+
+      console.log(state.currentPage);
     },
   },
 });
@@ -93,6 +164,7 @@ export const {
   setPriceHtoL,
   setAtoZ,
   setProduct,
+  setCurrentPage,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
