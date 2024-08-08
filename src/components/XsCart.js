@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import { Box, Typography, Button } from '@mui/material';
 
 import ClearIcon from '@mui/icons-material/Clear';
 import IncreDecreBtn from '../ui/IncreDecreBtn';
 
 const cartContainer = {
-  // px: '30px',
   py: '15px',
   display: 'flex',
   justifyContent: 'space-between',
@@ -69,12 +70,14 @@ function XsCart({
       {cartItems.length > 0 ? (
         cartItems.map((item) => (
           <Box key={item.id} sx={cartContainer}>
-            <Box
-              component='img'
-              src={item.img[0]}
-              alt={item.name}
-              sx={productImageStyles}
-            />
+            <Link to={`/products/${item.id}`}>
+              <Box
+                component='img'
+                src={item.img[0]}
+                alt={item.name}
+                sx={productImageStyles}
+              />
+            </Link>
 
             <Box sx={cartInfoBox}>
               <Box sx={productNameStyles}>

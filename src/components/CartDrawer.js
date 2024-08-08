@@ -9,10 +9,19 @@ import CustomButton from '../ui/CustomButton';
 import XsCart from './XsCart';
 
 const box1 = {
+  zIndex: 3,
+  position: 'fixed',
+  top: 0,
+  right: 0,
+  width: { xs: '80%', sm: '60%', md: '40%', lg: '30%' },
+};
+
+const cartTitleBox = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   borderBottom: '1px solid #000',
+  backgroundColor: '#fff',
   px: '30px',
   pt: '15px',
   pb: '10px',
@@ -76,7 +85,7 @@ const formatCurrency = (value) => {
 const formattedItemPrice = (price, quantity) =>
   formatCurrency(price * quantity);
 
-function CartDrawer({ open, onClose }) {
+function CartDrawer({ open, onClose, onClick }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -101,20 +110,22 @@ function CartDrawer({ open, onClose }) {
   const DrawerList = (
     <Box role='presentation' onKeyDown={onClose}>
       <Box sx={box1}>
-        <Typography>Your Cart:</Typography>
-        <Button disableRipple onClick={onClose} sx={closeDrawerBtn}>
-          <NavigateNextIcon />
-        </Button>
+        <Box sx={cartTitleBox}>
+          <Typography>Your Cart:</Typography>
+          <Button disableRipple onClick={onClose} sx={closeDrawerBtn}>
+            <NavigateNextIcon />
+          </Button>
+        </Box>
+
+        <Box sx={freeShippingSlogan}>
+          <SentimentSatisfiedAltIcon fontSize='small' />
+          <Typography fontSize='14px'>
+            Enjoy Free Shipping for every order!
+          </Typography>
+        </Box>
       </Box>
 
-      <Box sx={freeShippingSlogan}>
-        <SentimentSatisfiedAltIcon fontSize='small' />
-        <Typography fontSize='14px'>
-          Enjoy Free Shipping for every order!
-        </Typography>
-      </Box>
-
-      <Box sx={{ px: '20px' }}>
+      <Box sx={{ px: '20px', pt: '110px', pb: '200px' }}>
         <XsCart
           cartItems={cartItems}
           onClick={handleRemoveItem}
@@ -134,13 +145,15 @@ function CartDrawer({ open, onClose }) {
         <Box sx={checkoutBox}>
           <CustomButton
             href={'/cart'}
-            onClick={onClose}
+            onClick={onClick}
+            onClose={onClose}
             btnName='view cart'
             color='white'
           />
           <CustomButton
-            href={'/cart'}
-            onClick={onClose}
+            href={'/cart/payment'}
+            onClick={onClick}
+            onClose={onClose}
             btnName='checkout'
             color='white'
           />

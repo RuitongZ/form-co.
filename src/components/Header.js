@@ -26,7 +26,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import CartDrawer from './CartDrawer';
-import Brands from '../pages/Brands';
 import { setClickedPage } from '../redux/pagesSlice';
 
 const appBarStyles = {
@@ -116,7 +115,6 @@ function Header() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  // const [clickedPage, setClickedPage] = useState(null);
 
   const cartItems = useSelector((state) => state.cart.items);
   const clickedPage = useSelector((state) => state.pages.clickedPage);
@@ -136,7 +134,7 @@ function Header() {
     dispatch(setClickedPage(page));
   };
 
-  const handleHomeClick = () => {
+  const handleClickedPageReset = (event) => {
     dispatch(setClickedPage(null));
   };
 
@@ -256,7 +254,7 @@ function Header() {
             >
               <Button
                 disableRipple
-                onClick={handleHomeClick}
+                onClick={handleClickedPageReset}
                 component={RouterLink}
                 to={''}
                 sx={logoBtnStyles}
@@ -304,7 +302,11 @@ function Header() {
         </Toolbar>
       </AppBar>
 
-      <CartDrawer open={cartOpen} onClose={toggleCartDrawer(false)} />
+      <CartDrawer
+        open={cartOpen}
+        onClose={toggleCartDrawer(false)}
+        onClick={handleClickedPageReset}
+      />
     </>
   );
 }

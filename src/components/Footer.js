@@ -25,7 +25,7 @@ const upperContainer = {
 const menuWrapBox = {
   display: 'flex',
   justifyContent: { xs: 'center', md: 'flex-start' },
-  width: { xs: '100%', md: '70%' },
+  width: { xs: '100%', sm: '100%', md: '70%' },
 };
 
 const subscribeBox = {
@@ -45,9 +45,9 @@ const menu1Box = {
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  paddingRight: { xs: '30px', sm: '50px', md: '50px' },
+  paddingRight: { xs: '15px', sm: '50px', md: '40px', lg: '50px' },
   paddingY: '5px',
-  paddingLeft: { xs: '30px', sm: '30px', md: '0' },
+  paddingLeft: 0,
 };
 
 const menu2Box = {
@@ -55,7 +55,7 @@ const menu2Box = {
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  paddingX: { xs: '30px', sm: '50px', md: '50px' },
+  paddingX: { xs: '15px', sm: '50px', md: '40px', lg: '50px' },
   paddingY: '5px',
   borderRight: '1px solid #000',
   borderLeft: '1px solid #000',
@@ -66,8 +66,9 @@ const menu3Box = {
   flexDirection: 'column',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  paddingX: { xs: '30px', sm: '50px', md: '50px' },
+  paddingLeft: { xs: '15px', sm: '50px', md: '40px', lg: '50px' },
   paddingY: '5px',
+  paddingRight: 0,
 };
 
 const textStyles = {
