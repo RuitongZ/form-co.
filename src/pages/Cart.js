@@ -1,10 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItemFromCart, updateItemQuantity } from '../redux/cartSlice';
+import {
+  removeItemFromCart,
+  selectCartItems,
+  selectEstimatedTax,
+  selectSubtotalPrice,
+  selectTotalPrice,
+  updateItemQuantity,
+} from '../redux/cartSlice';
 
 import { Box, Grid, Typography } from '@mui/material';
 import IncreDecreBtn from '../ui/IncreDecreBtn';
 import CustomButton from '../ui/CustomButton';
 import XsCart from '../components/XsCart';
+import { formatCurrency } from '../utils/priceUtils';
 
 const bodyContainer = {
   pt: '50px',
@@ -60,23 +68,12 @@ const itemNameStyles = {
   justifyContent: 'center',
 };
 
-const formatCurrency = (value) => {
-  return (
-    'C' +
-    new Intl.NumberFormat('en-CA', {
-      style: 'currency',
-      currency: 'CAD',
-      minimumIntegerDigits: 2,
-    }).format(value)
-  );
-};
-
-const formattedItemPrice = (price, quantity) =>
-  formatCurrency(price * quantity);
-
 function Cart() {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector(selectCartItems);
+  const subtotalPrice = useSelector(selectSubtotalPrice);
+  const estimatedTax = useSelector(selectEstimatedTax);
+  const totalPrice = useSelector(selectTotalPrice);
 
   const handleRemoveItem = (id) => {
     dispatch(removeItemFromCart(id));
@@ -88,18 +85,6 @@ function Cart() {
       dispatch(removeItemFromCart(id));
     }
   };
-
-  const subtotalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  const formattedSubtotalPrice = formatCurrency(subtotalPrice);
-
-  const estimatedTax = subtotalPrice * 0.13;
-  const formattedEsimatedTax = formatCurrency(estimatedTax);
-
-  const totalPrice = subtotalPrice + estimatedTax;
-  const formattedTotalPrice = formatCurrency(totalPrice);
 
   return (
     <Box sx={bodyContainer}>
@@ -147,6 +132,7 @@ function Cart() {
             cartItems.map((item) => (
               <Grid
                 container
+                key={item.id}
                 spacing={4}
                 m={0}
                 width='100%'
@@ -195,13 +181,13 @@ function Cart() {
 
                 <Grid item xs={2} sx={itemInfoGrid}>
                   <Typography fontSize='14px' fontWeight={600}>
-                    {formattedItemPrice(item.price, 1)}
+                    {formatCurrency(item.price)}
                   </Typography>
                 </Grid>
 
                 <Grid item xs={2} sx={itemInfoGrid}>
                   <Typography fontSize='14px' fontWeight={600}>
-                    {formattedItemPrice(item.price, item.quantity)}
+                    {formatCurrency(item.price * item.quantity)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -228,7 +214,9 @@ function Cart() {
             onClick={handleRemoveItem}
             onIncrement={handleUpdateQuantity}
             onDecrement={handleUpdateQuantity}
-            formattedItemPrice={formattedItemPrice}
+            formattedItemPrice={(price, quantity) =>
+              formatCurrency(price * quantity)
+            }
           />
         </Box>
 
@@ -248,7 +236,7 @@ function Cart() {
         >
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography fontSize='14px'>Subtotal:</Typography>
-            <Typography fontWeight={600}>{formattedSubtotalPrice}</Typography>
+            <Typography fontWeight={600}>{subtotalPrice}</Typography>
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -258,7 +246,7 @@ function Cart() {
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography fontSize='14px'>Estimated Tax:</Typography>
-            <Typography fontWeight={600}>{formattedEsimatedTax}</Typography>
+            <Typography fontWeight={600}>{estimatedTax}</Typography>
           </Box>
 
           <Box
@@ -270,7 +258,7 @@ function Cart() {
             }}
           >
             <Typography fontSize='14px'>Total:</Typography>
-            <Typography fontWeight={600}>{formattedTotalPrice}</Typography>
+            <Typography fontWeight={600}>{totalPrice}</Typography>
           </Box>
 
           <Box
@@ -281,7 +269,7 @@ function Cart() {
               width: '100%',
             }}
           >
-            <CustomButton btnName='Checkout' color='white' />
+            <CustomButton btnName='Checkout' color='white' href={'payment'} />
           </Box>
         </Box>
       </Box>
