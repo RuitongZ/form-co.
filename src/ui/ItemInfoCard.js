@@ -1,5 +1,14 @@
 import { Box, Typography } from '@mui/material';
 
+const containerStyles = {
+  maxWidth: '280px',
+  marginTop: '10px',
+  paddingLeft: '10px',
+  borderLeft: '1px solid #000',
+  display: 'flex',
+  justifyContent: 'space-between',
+};
+
 const formatCurrency = (value) => {
   return (
     'C' +
@@ -15,16 +24,7 @@ const formattedItemPrice = (price) => formatCurrency(price);
 
 function ItemInfoCard({ item }) {
   return (
-    <Box
-      sx={{
-        maxWidth: '280px',
-        marginTop: '10px',
-        paddingLeft: '10px',
-        borderLeft: '1px solid #000',
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
+    <Box sx={containerStyles}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography
           sx={{
