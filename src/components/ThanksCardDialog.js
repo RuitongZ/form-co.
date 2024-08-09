@@ -1,13 +1,3 @@
-import { useDispatch } from 'react-redux';
-import {
-  filterCarouselProducts,
-  filterProducts,
-  shuffleProducts,
-} from '../redux/productsSlice';
-import { selectCategory } from '../redux/categoriesSlice';
-import { setClickedPage } from '../redux/pagesSlice';
-import { clearCart } from '../redux/cartSlice';
-
 import {
   Dialog,
   DialogTitle,
@@ -20,7 +10,6 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import CustomButton from '../ui/CustomButton';
 
-import ThankCard from '../images/thank-card.jpg';
 import ThankCardImg from '../images/thank-card-img.jpg';
 
 const clearBtnBox = {
