@@ -134,7 +134,7 @@ function Header() {
     dispatch(setClickedPage(page));
   };
 
-  const handleClickedPageReset = (event) => {
+  const handleClickedPageReset = () => {
     dispatch(setClickedPage(null));
   };
 
@@ -302,11 +302,7 @@ function Header() {
         </Toolbar>
       </AppBar>
 
-      <CartDrawer
-        open={cartOpen}
-        onClose={toggleCartDrawer(false)}
-        onClick={handleClickedPageReset}
-      />
+      <CartDrawer open={cartOpen} onClose={toggleCartDrawer(false)} />
     </>
   );
 }

@@ -11,6 +11,7 @@ import topBanner from '../images/top-banner.png';
 import CustomButton from '../ui/CustomButton';
 
 import { Box, Typography } from '@mui/material';
+import { setClickedPage } from '../redux/pagesSlice';
 
 const homeBannerStyles = {
   paddingY: '50px',
@@ -44,6 +45,7 @@ function HomeBanner() {
     dispatch(filterProducts('reset'));
     dispatch(shuffleProducts());
     dispatch(selectCategory('All Products'));
+    dispatch(setClickedPage('products'));
   };
 
   return (
@@ -84,7 +86,7 @@ function HomeBanner() {
           <Box>
             <CustomButton
               btnName='shop all'
-              color='black'
+              color='white'
               href={'products'}
               onClick={handleClick}
             />

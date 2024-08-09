@@ -64,13 +64,14 @@ function XsCart({
   onDecrement,
   onIncrement,
   formattedItemPrice,
+  onClose,
 }) {
   return (
     <>
       {cartItems.length > 0 ? (
         cartItems.map((item) => (
           <Box key={item.id} sx={cartContainer}>
-            <Link to={`/products/${item.id}`}>
+            <Link to={`/products/${item.id}`} onClick={onClose}>
               <Box
                 component='img'
                 src={item.img[0]}

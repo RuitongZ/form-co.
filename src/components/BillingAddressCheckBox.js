@@ -16,7 +16,6 @@ function BillingAddressCheckBox() {
         control={
           <Checkbox
             disableRipple
-            defaultChecked
             size='small'
             checked={checked}
             onChange={handleChange}

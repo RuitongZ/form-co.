@@ -49,7 +49,7 @@ function OrderSummary() {
 
   return (
     <Box sx={summaryContainer}>
-      <Typography fontSize='16px' fontWeight={600} sx>
+      <Typography fontSize='16px' fontWeight={600}>
         Order summary:
       </Typography>
 

@@ -9,8 +9,10 @@ import {
   Typography,
 } from '@mui/material';
 import styled from 'styled-components';
+
 import AddressForm from './AddressForm';
 import BillingAddressCheckBox from './BillingAddressCheckBox';
+
 import AMEX from '../images/payment-icons/amex.svg';
 import VISA from '../images/payment-icons/visa.svg';
 import INTERAC from '../images/payment-icons/interac.svg';

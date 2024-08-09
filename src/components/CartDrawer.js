@@ -7,6 +7,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 
 import CustomButton from '../ui/CustomButton';
 import XsCart from './XsCart';
+import { setClickedPage } from '../redux/pagesSlice';
 
 const box1 = {
   zIndex: 3,
@@ -85,7 +86,7 @@ const formatCurrency = (value) => {
 const formattedItemPrice = (price, quantity) =>
   formatCurrency(price * quantity);
 
-function CartDrawer({ open, onClose, onClick }) {
+function CartDrawer({ open, onClose }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -98,6 +99,17 @@ function CartDrawer({ open, onClose, onClick }) {
     if (quantity === 0) {
       dispatch(removeItemFromCart(id));
     }
+  };
+
+  const handleItemClick = () => {
+    onClose();
+    dispatch(setClickedPage('products'));
+  };
+
+  const handleReset = () => {
+    onClose();
+    dispatch(setClickedPage(null));
+    window.scroll({ top: 0, behavior: 'smooth' });
   };
 
   const totalPrice = cartItems.reduce(
@@ -127,6 +139,7 @@ function CartDrawer({ open, onClose, onClick }) {
 
       <Box sx={{ px: '20px', pt: '110px', pb: '200px' }}>
         <XsCart
+          onClose={handleItemClick}
           cartItems={cartItems}
           onClick={handleRemoveItem}
           onIncrement={handleUpdateQuantity}
@@ -145,15 +158,13 @@ function CartDrawer({ open, onClose, onClick }) {
         <Box sx={checkoutBox}>
           <CustomButton
             href={'/cart'}
-            onClick={onClick}
-            onClose={onClose}
+            onClick={handleReset}
             btnName='view cart'
             color='white'
           />
           <CustomButton
             href={'/cart/payment'}
-            onClick={onClick}
-            onClose={onClose}
+            onClick={handleReset}
             btnName='checkout'
             color='white'
           />

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterCarouselProducts, filterProducts } from '../redux/productsSlice';
 import { selectCategory } from '../redux/categoriesSlice';
+import { setClickedPage } from '../redux/pagesSlice';
 import { Link as RouterLink } from 'react-router-dom';
 
 import Carousel from 'react-multi-carousel';
@@ -85,11 +86,13 @@ function ImgCarousel({ title, isFeatured = false, category = '' }) {
     if (category) {
       dispatch(selectCategory(category));
       dispatch(filterProducts(category));
+      dispatch(setClickedPage('products'));
     }
     if (isFeatured === true) {
       dispatch(filterProducts('reset'));
       dispatch(selectCategory('featured'));
       dispatch(filterCarouselProducts({ isFeatured: true }));
+      dispatch(setClickedPage('products'));
     }
   };
 
@@ -196,7 +199,7 @@ function ImgCarousel({ title, isFeatured = false, category = '' }) {
       >
         <CustomButton
           btnName='View all'
-          color='black'
+          color='white'
           href={`/products`}
           onClick={handleClick}
         />
