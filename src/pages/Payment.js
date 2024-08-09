@@ -6,7 +6,7 @@ import { setClickedPage } from '../redux/pagesSlice';
 import { Box, Typography, Button } from '@mui/material';
 import CheckoutForm from '../components/CheckoutForm';
 import OrderSummary from '../components/OrderSummary';
-import ThanksCardDialoy from '../components/ThanksCardDialoy';
+import ThanksCardDialog from '../components/ThanksCardDialog';
 
 const bodyContainer = {
   pt: '50px',
@@ -96,7 +96,7 @@ function Payment() {
           </Button>
         </Box>
 
-        <ThanksCardDialoy
+        <ThanksCardDialog
           open={open}
           onClose={handelClose}
           onClick={handleClickContinue}

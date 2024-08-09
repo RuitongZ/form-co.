@@ -88,7 +88,7 @@ const dialogActionStyles = {
   justifyContent: 'center',
 };
 
-function ThanksCardDialoy({ open, onClose, onClick }) {
+function ThanksCardDialog({ open, onClose, onClick }) {
   return (
     <Dialog
       open={open}
@@ -143,4 +143,4 @@ function ThanksCardDialoy({ open, onClose, onClick }) {
   );
 }
 
-export default ThanksCardDialoy;
+export default ThanksCardDialog;
