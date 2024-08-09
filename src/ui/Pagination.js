@@ -21,6 +21,7 @@ function CustomPagination() {
 
   const handlePageChange = (event, value) => {
     dispatch(setCurrentPage(value));
+    window.scrollTo({ top: 150, behavior: 'smooth' });
   };
 
   return (

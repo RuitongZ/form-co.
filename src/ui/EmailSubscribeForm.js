@@ -120,7 +120,7 @@ function EmailScribeForm() {
       <CustomButton
         type='submit'
         btnName='Subscribe'
-        color='black'
+        color='white'
         onClick={handleSubmit}
       />
 
