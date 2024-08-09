@@ -103,6 +103,11 @@ import CandleholderR from '../images/objects/Momento-Candleholder-JH39-red.png';
 import CandleholderR1 from '../images/objects/Momento-Candleholder-JH39-red-1.jpeg';
 import CandleholderB from '../images/objects/Momento-Candleholder-JH39-blue.png';
 import CandleholderB1 from '../images/objects/Momento-Candleholder-JH39-blue-1.jpeg';
+import MatinLamp from '../images/lighting/Matin-Flush-Mount-Lamp.png';
+import MatinLamp1 from '../images/lighting/Matin-Flush-Mount-Lamp-1.png';
+import PaoLamp from '../images/lighting/Pao-Portable-Lamp.png';
+import PaoLamp1 from '../images/lighting/Pao-Portable-Lamp-1.png';
+import PaoLamp2 from '../images/lighting/Pao-Portable-Lamp-2.png';
 
 export const All_PRODUCTS_DATA = [
   {
@@ -716,5 +721,35 @@ export const All_PRODUCTS_DATA = [
     description: `The Momento Candleholder celebrates the timeless form of classic candleholders, originally designed for portability from room to room. Handcrafted with precision by artisans in Portugal through slip-casting and glazing, the JH39 Candleholder is available in four colors inspired by Hayon’s artwork. Azure and Poppy Red offer vibrant, statement hues, while Ivory and Red Brown introduce rich, sophisticated tones to interiors.`,
     productDetails: 'W: 14.2cm, H: 8.5cm, D: 11.8cm',
     materials: 'Ceramic',
+  },
+  {
+    id: 40,
+    name: 'Matin Flush Mount Lamp',
+    featured: false,
+    brand: 'HAY',
+    designer: 'Inga Sempé',
+    category: 'lighting',
+    img: [MatinLamp, MatinLamp1],
+    type: 'pendant lamp',
+    color: 'peach',
+    price: '245',
+    description: `Inga Sempé is celebrated for her designs that exude a delicate touch, and her Matin Flushmount Lamp is no exception. This versatile lamp can be mounted on either a wall or ceiling, offering a warm, inviting glow whether it's on or off. The lamp features a pleated PVC-laminated cotton shade and comes with a painted steel bracket for easy installation. It's hardwired and compatible with dimmer switches and dimmable LED bulbs (not included). The Matin Flushmount Lamp is a key piece in the Matin lighting collection, perfect for adding elegance to any space.`,
+    productDetails: 'H: 17.78cm D: 48.26cm',
+    materials: 'CPVC-laminated cotton shade, Painted steel bracket',
+  },
+  {
+    id: 41,
+    name: 'Pao Portable Lamp',
+    featured: true,
+    brand: 'HAY',
+    img: [PaoLamp, PaoLamp1, PaoLamp2],
+    designer: 'Naoto Fukasawa',
+    category: 'lighting',
+    type: 'table lamp',
+    color: 'red',
+    price: '195',
+    description: `Inspired by the mushroom-like forms of illuminated Mongolian Pao tents, Japanese designer Naoto Fukasawa crafted the Pao Collection. The Pao Portable Lamp, featuring a glossy polycarbonate shade, emits a soft, ambient glow reminiscent of candlelight, without the risk. This compact, modern lamp is lightweight, battery-operated, and can be easily moved from room to room. It includes a G4 LED bulb and is UL listed for safety. Available in four colors, the lamp’s rechargeable battery provides up to 10 hours of light on a single charge. It's a perfect blend of function and design.`,
+    productDetails: 'H: 22.86cm  D: 22.86cm',
+    materials: 'Polycarbonate base and shade',
   },
 ];
