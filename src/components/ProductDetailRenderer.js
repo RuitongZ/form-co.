@@ -9,7 +9,7 @@ import { Box, Typography } from '@mui/material';
 const bodyContainer = {
   paddingTop: '50px',
   paddingBottom: '20px',
-  paddingX: { xs: '40px', sm: '50px', md: '60px', lg: '80px' },
+  paddingX: { xs: '20px', sm: '50px', md: '60px', lg: '80px' },
   backgroundColor: '#EEEAE2',
   display: 'flex',
   flexDirection: { xs: 'column', md: 'row' },

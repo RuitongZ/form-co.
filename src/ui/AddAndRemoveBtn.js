@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const addAndRemoveBoxStyles = {
-  width: { xs: '25%', sm: '35%' },
+  width: { xs: '50%', sm: '35%' },
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
