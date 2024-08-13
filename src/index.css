@@ -13,8 +13,8 @@ body {
 
 @font-face {
   font-family: 'Font2';
-  src: url('../public/fonts/Fontspring-DEMO-cerapro-regular.otf')
-    format('opentype');
+  src: url('../public/fonts/Fontspring-DEMO-cerapro-regular.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
 }
