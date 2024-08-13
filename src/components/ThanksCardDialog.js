@@ -64,7 +64,7 @@ const dialogTextBox = {
 };
 
 const textStyles = {
-  fontSize: { xs: '14px', sm: '16px', md: '20px' },
+  fontSize: { xs: '16px', sm: '16px', md: '20px' },
   fontWeight: 300,
   wordSpacing: '3px',
   textAlign: 'center',
@@ -91,8 +91,8 @@ function ThanksCardDialog({ open, onClose, onClick }) {
           backdropFilter: 'blur(10px)',
           borderRadius: 0,
           border: '1px solid #000',
-          width: '70%',
-          height: { xs: '45%', sm: '50%' },
+          width: { xs: '80%', sm: '70%' },
+          height: { xs: '55%', sm: '50%' },
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
