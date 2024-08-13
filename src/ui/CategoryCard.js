@@ -131,7 +131,7 @@ function CategoryCard({ category }) {
         </Box>
         <CustomButton
           btnName='View more'
-          color='black'
+          color='white'
           RouterLink
           href={`products`}
           onClick={() => handleClick(category.category)}
